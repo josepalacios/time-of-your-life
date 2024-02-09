@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import ClockProps from './ClockProps'
+import ValidationForm from '../validation-helper'
 
 function SetClockProps(props) {
   const clockProps = new ClockProps()
   const [fontFamily, setFontFamily] = useState(clockProps.fontFamily)
   const [fontColor, setFontColor] = useState(clockProps.fontColor)
   const [blinkColons, setBlinkColons] = useState(clockProps.blinkColons)
+  const [textTitle, setTextTitle] = useState(clockProps.textTitle)
   const [presets, setPresets] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -25,6 +27,7 @@ function SetClockProps(props) {
     props.clockFontSize = document.getElementById('clockFontSize').value
     props.fontColor = document.getElementById('fontColor').value
     props.blinkColons = document.getElementById('blinkColons').checked
+    props.textTitle = document.getElementById('textTitle').value
     return props
   }
 
@@ -43,14 +46,21 @@ function SetClockProps(props) {
     })
   }
 
-  const setFontFamilyUI = () => {
+  const setFontFamilyUI = (event) => {
     setFontFamily(document.getElementById('fontFamily').value)
     clockProps.fontFamily = document.getElementById('fontFamily').value
+    const newClockObject = {...clockValues}
+    newClockObject.fontFamily = clockProps.fontFamily;
+    setClockValues(newClockObject);
+    
   }
 
   const setFontColurUI = (e) => {
     setFontColor(document.getElementById('fontColor').value)
     clockProps.fontColor = document.getElementById('fontColor').value
+    const newClockObject = {...clockValues}
+    newClockObject.fontColor = clockProps.fontColor;
+    setClockValues(newClockObject);
   }
 
   const setBlinkColonsUI = () => {
@@ -58,6 +68,29 @@ function SetClockProps(props) {
     clockProps.blinkColons = document.getElementById('blinkColons').checked
     setClockProps()
   }
+
+  const setTextTitleUI = (e) => {
+    setTextTitle(document.getElementById('textTitle').value)
+    clockProps.texTitle = document.getElementById('textTitle').value
+    const newClockObject = {...clockValues}
+    newClockObject.textTitle = clockProps.texTitle;
+    setClockValues(newClockObject);
+  }
+
+  const [clockValues, setClockValues] = useState({
+     fontFamily: clockProps.fontFamily,
+     fontColor: clockProps.fontColor,
+     textTitle: clockProps.textTitle 
+  });
+
+  const [errors, setErrors] = useState({});
+
+  function handleValidation(event) {
+    debugger;
+    event.preventDefault();
+    setErrors(ValidationForm(clockValues));
+  }
+
 
   const presetsDisplay = (() => {
     console.log(presets)
@@ -78,6 +111,7 @@ function SetClockProps(props) {
   })()
 
   return (
+   
     <div id="ClockProps" style={{ overflow: 'auto' }}>
       <div
         style={{
@@ -100,7 +134,8 @@ function SetClockProps(props) {
         </a>
       </div>
       <div>
-        <div>
+      <form onSubmit={handleValidation}>
+      <div>
           <h1>Clock Properties</h1>
           <hr />
         </div>
@@ -114,10 +149,12 @@ function SetClockProps(props) {
               <input
                 id="fontFamily"
                 value={fontFamily}
-                onChange={setFontFamilyUI}
+                onChange={(e) => setFontFamilyUI(e)}
               />
               <button onClick={setClockProps}>✓</button>
+              {errors.fontFamily && <p style={{color:"red"}}>{errors.fontFamily} </p>}
             </div>
+            
           </div>
           <div>
             <div>Title Font Size</div>
@@ -144,6 +181,7 @@ function SetClockProps(props) {
                 onChange={(e) => setFontColurUI(e)}
               />
               <button onClick={setClockProps}>✓</button>
+              {errors.fontColor && <p style={{color:"red"}}>{errors.fontColor} </p>}
             </div>
           </div>
           <div>
@@ -158,17 +196,28 @@ function SetClockProps(props) {
             </div>
           </div>
           <div>
+            <div>Text Title</div>
+            <div>
+              <input
+                id="textTitle"
+                value={textTitle}
+                onChange={(e) => setTextTitleUI(e)}
+              />
+              <button onClick={setClockProps}>✓</button>
+              {errors.textTitle && <p style={{color:"red"}}>{errors.textTitle} </p>}
+            </div>
+          </div>
+          <div>
             <div>
               <button
-                onClick={() =>
-                  alert('This should save the preset to the sever.')
-                }
+                
               >
                 Save Preset
               </button>
             </div>
           </div>
         </div>
+      </form>
         <hr />
         <div>
           <h2>Presets</h2>

@@ -33,11 +33,18 @@ function Clock(props) {
     fontSize: `${props.clockProps.clockFontSize}pt`,
   }
 
+
+  let textTitle = '';
+  if(props.clockProps.textTitle)
+  {
+    textTitle = props.clockProps.textTitle;
+  }
+
   return (
     <div id="Clock">
       <div id="Digits" style={displayStyle}>
         <div id="title" style={titleStyle}>
-          The Time of Your Life
+        {textTitle}
         </div>
         <div id="time" style={clockStyle}>
           {displayText}
