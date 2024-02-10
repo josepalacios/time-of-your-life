@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import ClockProps from './ClockProps'
 import ValidationForm from '../validation-helper'
+import Presets from './Presets'
+
 
 function SetClockProps(props) {
   const clockProps = new ClockProps()
@@ -222,6 +224,9 @@ function SetClockProps(props) {
         <div>
           <h2>Presets</h2>
           <div>{presetsDisplay}</div>
+          <div>
+          <Presets/>
+          </div>
         </div>
       </div>
     </div>

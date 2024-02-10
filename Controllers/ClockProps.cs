@@ -1,6 +1,7 @@
 namespace time.Controllers;
 
 public class ClockProps {
+  public int PresetId { get; set; } = 1;
   public string FontFamily {get; set;} = "courier";
   public int[] AvailableFontSizes {get; }  = new[] { 12, 24, 48, 64 };
   public int TitleFontSize {get; set;} = 64;
