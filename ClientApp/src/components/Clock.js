@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import TimeToWords from '../components/TimeToWords'
 
 function Clock(props) {
   const [date, setDate] = useState(new Date())
@@ -47,7 +48,8 @@ function Clock(props) {
         {textTitle}
         </div>
         <div id="time" style={clockStyle}>
-          {displayText}
+          {displayText} 
+          <TimeToWords/>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import ClockProps from './ClockProps'
 import ValidationForm from '../validation-helper'
 import Presets from './Presets'
 import axios from 'axios'
+import ColorPicker from './ColorPicker'
 
 
 function SetClockProps(props) {
@@ -98,7 +99,6 @@ function SetClockProps(props) {
     event.preventDefault();
     setErrors(ValidationForm(clockValues))
     axios.post(PRESETS_POST_URL, {clockValues})
-    // .then(response => console.log(response))
     .catch(err => console.log(err));
   }
 
@@ -182,6 +182,7 @@ function SetClockProps(props) {
           </div>
           <div>
             <div>Font Color</div>
+            <ColorPicker/>
             <div>
               <input
                 id="fontColor"

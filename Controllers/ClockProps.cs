@@ -15,4 +15,5 @@ public class ClockProps {
   public bool BlinkColons {get; set;} = true;
   [Required(ErrorMessage = "The font color field is required.")]
   public string FontColor {get; set;} = "black";
+  public string TextTitle { get; set; } = "The Time of Your Life";
 }
