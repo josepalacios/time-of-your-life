@@ -15,4 +15,71 @@
   float: right;
   width: 40%;
   min-height: 600px;
+  
+}
+
+.my-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.my-list li {
+  background-color: #f2f2f2;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  background: rgb(243, 243, 243);
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0 4rem 0;
+}
+
+.accordion {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.accordion-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.accordion-title:hover {
+  background-color: #ffffff;
+}
+
+.accordion-title,
+.accordion-content {
+  padding: 1rem;
+}
+
+.accordion-content {
+  background-color: #ffffff;
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    font-size: 18px;
+  }
+
+  .accordion {
+    width: 90%;
+  }
 }

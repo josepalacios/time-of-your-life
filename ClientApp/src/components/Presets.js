@@ -12,7 +12,6 @@ const Presets = () => {
           const response = await fetch(PRESETS_URL)
           const result = await response.json()
           setPresets(result);
-          console.log(result);
         } catch (error) {
           console.error('Error fetching presets:', error);
         } finally {

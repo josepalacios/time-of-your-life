@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ClockProps from './ClockProps'
 import ValidationForm from '../validation-helper'
 import Presets from './Presets'
+import axios from 'axios'
 
 
 function SetClockProps(props) {
@@ -10,8 +11,11 @@ function SetClockProps(props) {
   const [fontColor, setFontColor] = useState(clockProps.fontColor)
   const [blinkColons, setBlinkColons] = useState(clockProps.blinkColons)
   const [textTitle, setTextTitle] = useState(clockProps.textTitle)
+  const [isActive, setIsActive] = useState(false);
   const [presets, setPresets] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const PRESETS_POST_URL= 'https://localhost:7154/clock/presets';
 
   useEffect(() => {
     ;(async () => {
@@ -82,6 +86,8 @@ function SetClockProps(props) {
   const [clockValues, setClockValues] = useState({
      fontFamily: clockProps.fontFamily,
      fontColor: clockProps.fontColor,
+     titleFontSize: clockProps.titleFontSize,
+     clockFontSize: clockProps.clockFontSize,
      textTitle: clockProps.textTitle 
   });
 
@@ -90,12 +96,14 @@ function SetClockProps(props) {
   function handleValidation(event) {
     debugger;
     event.preventDefault();
-    setErrors(ValidationForm(clockValues));
+    setErrors(ValidationForm(clockValues))
+    axios.post(PRESETS_POST_URL, {clockValues})
+    // .then(response => console.log(response))
+    .catch(err => console.log(err));
   }
 
 
   const presetsDisplay = (() => {
-    console.log(presets)
     return loading ? (
       <div>
         This is a good place to display and use the presets stored on the sever.
@@ -127,15 +135,13 @@ function SetClockProps(props) {
         <a
           style={{ cursor: 'pointer' }}
           onClick={() =>
-            alert(
-              'This the button that would expand or collapse the settings panel.'
-            )
+            setIsActive(!isActive)
           }
         >
           +/-
         </a>
       </div>
-      <div>
+      {isActive && <div className="accordion-content">
       <form onSubmit={handleValidation}>
       <div>
           <h1>Clock Properties</h1>
@@ -228,7 +234,7 @@ function SetClockProps(props) {
           <Presets/>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
