@@ -17,7 +17,6 @@ namespace time_of_your_life.Controllers
         public AlarmController(ApplicationDbContext context, ILogger logger)
         {
             _context = context;
-            _logger = logger;
         }
 
         [HttpGet("GetAllAlarms")]
